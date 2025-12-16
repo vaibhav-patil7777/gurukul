@@ -10,17 +10,17 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
+    font-family:"Times New Roman", serif;
 }
 
 /* ===== BASE ===== */
 body{
-    font-family:"Times New Roman", serif;
     background:#faf9f7;
     color:#2b2b2b;
     line-height:1.7;
 }
 
-/* ===== NAVBAR (matching Gallery page) ===== */
+/* ===== NAVBAR (Transparent + Responsive) ===== */
 .navbar{
     width:100%;
     padding:28px 70px;
@@ -28,6 +28,8 @@ body{
     justify-content:space-between;
     align-items:center;
     background:transparent;
+    position:relative;
+    z-index:1000;
 }
 
 .logo{
@@ -69,6 +71,14 @@ body{
     width:100%;
 }
 
+/* Hamburger icon */
+.menu-toggle{
+    display:none;
+    font-size:28px;
+    cursor:pointer;
+    color:#4f5d4a;
+}
+
 /* ===== PAGE TITLE ===== */
 .page-title{
     text-align:center;
@@ -85,7 +95,7 @@ body{
     color:#6f6f6f;
 }
 
-/* ===== COURSES CARDS (matching Gallery style) ===== */
+/* ===== COURSES CARDS ===== */
 .container{
     max-width:1200px;
     margin:auto;
@@ -97,12 +107,12 @@ body{
 }
 
 .course-card{
-    background: transparent; /* transparent background */
+    background: transparent;
     padding:25px;
     border-radius:15px;
     width:280px;
-    border: 2px solid #0ff; /* neon border */
-    box-shadow: 0 0 20px rgba(0,255,255,0.3); /* subtle glow */
+    border: 2px solid #0ff;
+    box-shadow: 0 0 20px rgba(0,255,255,0.3);
     display:flex;
     flex-direction:column;
     align-items:center;
@@ -167,15 +177,35 @@ body{
 
 @media(max-width:600px){
     .navbar{
-        flex-direction:column;
-        gap:18px;
+        flex-direction:row;
+        justify-content:space-between;
         padding:20px;
+        background:transparent;
     }
-
+    .nav-links{
+        display:none;
+        flex-direction:column;
+        width:100%;
+        gap:0;
+        position:absolute;
+        top:70px;
+        left:0;
+        background:transparent;
+        padding:0;
+    }
+    .nav-links.active{
+        display:flex;
+    }
+    .nav-links a{
+        padding:12px 20px;
+        border:none;
+    }
+    .menu-toggle{
+        display:block;
+    }
     .page-title h1{
         font-size:30px;
     }
-
     .course-card{
         width:90%;
         padding:20px;
@@ -188,14 +218,14 @@ body{
 <!-- NAVBAR -->
 <nav class="navbar">
     <div class="logo">GEMS</div>
-    <div class="nav-links">
+    <div class="menu-toggle" id="mobile-menu">&#9776;</div>
+    <div class="nav-links" id="navLinks">
         <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('about') }}">About</a>
         <a href="{{ url_for('course_page') }}">Courses</a>
         <a href="{{ url_for('gallery_page') }}">Gallery</a>
         <a href="{{ url_for('contact_page') }}">Contact</a>
         <a href="{{ url_for('admin_login') }}">Admin</a>
-
     </div>
 </nav>
 
@@ -231,6 +261,13 @@ function openLightbox(src){
 function closeLightbox(){
     document.getElementById('lightbox').style.display = 'none';
 }
+
+// Hamburger menu toggle
+const menuToggle = document.getElementById('mobile-menu');
+const navLinks = document.getElementById('navLinks');
+menuToggle.addEventListener('click', ()=>{
+    navLinks.classList.toggle('active');
+});
 </script>
 
 </body>
