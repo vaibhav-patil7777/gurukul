@@ -29,6 +29,8 @@ body{
     justify-content:space-between;
     align-items:center;
     background:transparent;
+    position:relative;
+    z-index:1000;
 }
 
 /* LOGO */
@@ -53,7 +55,6 @@ body{
     padding-bottom:4px;
 }
 
-/* subtle underline */
 .nav-links a::after{
     content:"";
     position:absolute;
@@ -71,6 +72,14 @@ body{
 
 .nav-links a:hover::after{
     width:100%;
+}
+
+/* Hamburger icon */
+.menu-toggle{
+    display:none;
+    font-size:28px;
+    cursor:pointer;
+    color:#4f5d4a;
 }
 
 /* ===== CONTAINER ===== */
@@ -168,9 +177,29 @@ tr:nth-child(even){
 }
 @media(max-width:600px){
     .navbar{
-        flex-direction:column;
-        gap:18px;
+        flex-direction:row;
+        justify-content:space-between;
         padding:20px;
+    }
+    .nav-links{
+        display:none;
+        flex-direction:column;
+        width:100%;
+        gap:0;
+        position:absolute;
+        top:70px;
+        left:0;
+        background:transparent;
+        padding:0;
+    }
+    .nav-links.active{
+        display:flex;
+    }
+    .nav-links a{
+        padding:12px 20px;
+    }
+    .menu-toggle{
+        display:block;
     }
 }
 </style>
@@ -180,8 +209,9 @@ tr:nth-child(even){
 <!-- Navbar -->
 <nav class="navbar">
     <div class="logo">GEMS</div>
-    <div class="nav-links">
-        <a href="{{ url_for('admin_dashboard') }}">Home</a>
+    <div class="menu-toggle" id="mobile-menu">&#9776;</div>
+    <div class="nav-links" id="navLinks">
+        <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
         <a href="{{ url_for('manage_courses') }}">Courses</a>
         <a href="{{ url_for('manage_gallery') }}">Gallery</a>
         <a href="{{ url_for('contact_messages') }}">Messages</a>
@@ -231,8 +261,16 @@ tr:nth-child(even){
     </form>
 </div>
 
-<!-- Search & Checkbox Script -->
+<!-- Scripts -->
 <script>
+// Hamburger menu toggle
+const menuToggle = document.getElementById('mobile-menu');
+const navLinks = document.getElementById('navLinks');
+
+menuToggle.addEventListener('click', ()=>{
+    navLinks.classList.toggle('active');
+});
+
 // ===== Search Functionality =====
 document.getElementById("searchInput").addEventListener("keyup", function () {
     let filter = this.value.toLowerCase();
