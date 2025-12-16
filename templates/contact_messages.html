@@ -96,6 +96,19 @@ h2{
     font-size:15px;
 }
 
+/* ===== DELETE BUTTON ===== */
+#deleteBtn{
+    padding:8px 15px;
+    background:#d9534f;
+    color:white;
+    border:none;
+    cursor:pointer;
+    margin-bottom:10px;
+}
+#deleteBtn:hover{
+    background:#c9302c;
+}
+
 /* ===== TABLE ===== */
 table{
     width:100%;
@@ -183,34 +196,44 @@ tr:nth-child(even){
     <input type="text" id="searchInput"
            placeholder="Search by Name, Phone, Email or Date...">
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Message</th>
-                <th>Time</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for msg in messages %}
-            <tr>
-                <td data-label="ID">{{ msg.id }}</td>
-                <td data-label="Name">{{ msg.name }}</td>
-                <td data-label="Phone">{{ msg.phone }}</td>
-                <td data-label="Email">{{ msg.email }}</td>
-                <td data-label="Message">{{ msg.message }}</td>
-                <td data-label="Time">{{ msg.created_at }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <!-- Delete Form -->
+    <form method="POST" action="{{ url_for('delete_messages') }}" id="deleteForm">
+        <button type="submit" id="deleteBtn" onclick="return confirm('Are you sure you want to delete selected messages?')">Delete Selected</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th><input type="checkbox" id="selectAll"></th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for msg in messages %}
+                <tr>
+                    <td data-label="Select">
+                        <input type="checkbox" name="selected_ids" value="{{ msg.id }}">
+                    </td>
+                    <td data-label="ID">{{ msg.id }}</td>
+                    <td data-label="Name">{{ msg.name }}</td>
+                    <td data-label="Phone">{{ msg.phone }}</td>
+                    <td data-label="Email">{{ msg.email }}</td>
+                    <td data-label="Message">{{ msg.message }}</td>
+                    <td data-label="Time">{{ msg.created_at }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </form>
 </div>
 
-<!-- Search Script -->
+<!-- Search & Checkbox Script -->
 <script>
+// ===== Search Functionality =====
 document.getElementById("searchInput").addEventListener("keyup", function () {
     let filter = this.value.toLowerCase();
     let rows = document.querySelectorAll("tbody tr");
@@ -219,6 +242,12 @@ document.getElementById("searchInput").addEventListener("keyup", function () {
         let rowText = row.innerText.toLowerCase();
         row.style.display = rowText.includes(filter) ? "" : "none";
     });
+});
+
+// ===== Select / Deselect All Checkboxes =====
+document.getElementById("selectAll").addEventListener("change", function() {
+    let checkboxes = document.querySelectorAll('tbody input[type="checkbox"]');
+    checkboxes.forEach(cb => cb.checked = this.checked);
 });
 </script>
 
