@@ -77,14 +77,23 @@ body{
 .container{
     max-width:1250px;
     margin:auto;
-    padding:120px 20px 20px; /* top padding for navbar */
+    padding:120px 20px 20px;
 }
 
 /* ===== PAGE HEADING ===== */
 h2{
     text-align:center;
-    margin-bottom:30px;
+    margin-bottom:20px;
     color:#2f2f2f;
+}
+
+/* ===== SEARCH BAR ===== */
+#searchInput{
+    width:100%;
+    padding:10px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    font-size:15px;
 }
 
 /* ===== TABLE ===== */
@@ -159,36 +168,59 @@ tr:nth-child(even){
 <nav class="navbar">
     <div class="logo">GEMS</div>
     <div class="nav-links">
-        <a href="{{ url_for('admin_dashboard') }}"> Dashboard</a>
-        <a href="{{ url_for('manage_courses') }}"> Courses</a>
-        <a href="{{ url_for('manage_gallery') }}"> Gallery</a>
-        <a href="{{ url_for('contact_messages') }}"> Messages</a>
-        <a href="{{ url_for('admin_logout') }}"> Logout</a>
+        <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('manage_courses') }}">Courses</a>
+        <a href="{{ url_for('manage_gallery') }}">Gallery</a>
+        <a href="{{ url_for('contact_messages') }}">Messages</a>
+        <a href="{{ url_for('admin_logout') }}">Logout</a>
     </div>
 </nav>
 
 <div class="container">
-<h2>Contact Messages</h2>
-<table>
-<thead>
-<tr>
-<th>ID</th><th>Name</th><th>Phone</th><th>Email</th><th>Message</th><th>Time</th>
-</tr>
-</thead>
-<tbody>
-{% for msg in messages %}
-<tr>
-<td data-label="ID">{{ msg.id }}</td>
-<td data-label="Name">{{ msg.name }}</td>
-<td data-label="Phone">{{ msg.phone }}</td>
-<td data-label="Email">{{ msg.email }}</td>
-<td data-label="Message">{{ msg.message }}</td>
-<td data-label="Time">{{ msg.created_at }}</td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
+    <h2>Contact Messages</h2>
+
+    <!-- Search Bar -->
+    <input type="text" id="searchInput"
+           placeholder="Search by Name, Phone, Email or Date...">
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for msg in messages %}
+            <tr>
+                <td data-label="ID">{{ msg.id }}</td>
+                <td data-label="Name">{{ msg.name }}</td>
+                <td data-label="Phone">{{ msg.phone }}</td>
+                <td data-label="Email">{{ msg.email }}</td>
+                <td data-label="Message">{{ msg.message }}</td>
+                <td data-label="Time">{{ msg.created_at }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
+
+<!-- Search Script -->
+<script>
+document.getElementById("searchInput").addEventListener("keyup", function () {
+    let filter = this.value.toLowerCase();
+    let rows = document.querySelectorAll("tbody tr");
+
+    rows.forEach(row => {
+        let rowText = row.innerText.toLowerCase();
+        row.style.display = rowText.includes(filter) ? "" : "none";
+    });
+});
+</script>
 
 </body>
 </html>
