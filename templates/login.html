@@ -3,20 +3,179 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Login | Gurukul Dashboard</title>
+<title>Admin Login | GEMS Dashboard</title>
 <style>
-/* ===== RESET & BASE ===== */
-*{margin:0;padding:0;box-sizing:border-box;font-family:"Times New Roman", serif;}
-body{background:#faf9f7;color:#2b2b2b;height:100vh;}
+/* ===== RESET ===== */
+*{margin:0;padding:0;box-sizing:border-box;}
+
+/* ===== BASE ===== */
+body{
+    font-family:"Times New Roman", serif;
+    background:#faf9f7;
+    color:#2b2b2b;
+    line-height:1.7;
+}
+
 
 /* ===== NAVBAR ===== */
-.navbar{width:100%;padding:28px 70px;display:flex;justify-content:space-between;align-items:center;background:transparent;}
-.logo{font-size:30px;font-weight:600;letter-spacing:1.5px;color:#4f5d4a;}
-.nav-links{display:flex;gap:34px;}
-.nav-links a{text-decoration:none;font-size:16px;color:#6b6b6b;position:relative;padding-bottom:4px;}
-.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:#4f5d4a;transition:0.3s ease;}
-.nav-links a:hover{color:#2b2b2b;}
-.nav-links a:hover::after{width:100%;}
+.navbar{
+    width:100%;
+    padding:28px 70px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:transparent; /* Transparent background */
+    position:relative;
+    z-index:1000;
+}
+
+/* LOGO */
+.logo{
+    font-size:30px;
+    font-weight:600;
+    letter-spacing:1.5px;
+    color:#4f5d4a;
+}
+
+/* LINKS */
+.nav-links{
+    display:flex;
+    gap:34px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    font-size:16px;
+    color:#6b6b6b;
+    position:relative;
+    padding-bottom:4px;
+}
+
+/* subtle underline */
+.nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:0;
+    height:1px;
+    background:#4f5d4a;
+    transition:0.3s ease;
+}
+
+.nav-links a:hover{
+    color:#2b2b2b;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+/* Hamburger icon */
+.menu-toggle{
+    display:none;
+    font-size:28px;
+    cursor:pointer;
+    color:#4f5d4a;
+}
+
+/* ===== HERO ===== */
+.hero{
+    text-align:center;
+    padding:90px 20px 70px;
+}
+
+.hero h1{
+    font-size:44px;
+    font-weight:500;
+    margin-bottom:10px;
+    color:#2f2f2f;
+}
+
+.hero p{
+    font-size:18px;
+    color:#6f6f6f;
+}
+
+/* ===== CONTENT GRID ===== */
+.container{
+    max-width:1250px;
+    margin:auto;
+    padding:20px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:40px;
+}
+
+.card{
+    background:#ffffff;
+}
+
+.card img{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+}
+
+.card h3{
+    font-size:21px;
+    margin:18px 0 6px;
+    color:#333;
+}
+
+.card p{
+    font-size:15px;
+    color:#666;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:992px){
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+    .navbar{
+        padding:25px 40px;
+    }
+}
+
+@media(max-width:600px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+    .navbar{
+        flex-direction:row;
+        justify-content:space-between;
+        padding:20px;
+        background:transparent; /* Transparent mobile navbar */
+    }
+    .nav-links{
+        display:none;
+        flex-direction:column;
+        width:100%;
+        gap:0; /* No gap between links if you want exact stack */
+        position:absolute;
+        top:70px;
+        left:0;
+        background:transparent; /* Transparent background */
+        padding:0; /* No extra padding */
+    }
+    .nav-links.active{
+        display:flex;
+    }
+    .nav-links a{
+        padding:12px 20px;
+        border:none; /* No border between links */
+    }
+    .menu-toggle{
+        display:block;
+    }
+    .hero h1{
+        font-size:32px;
+    }
+}
 
 /* ===== LOGIN FORM ===== */
 .login-container{
@@ -27,10 +186,10 @@ body{background:#faf9f7;color:#2b2b2b;height:100vh;}
 }
 
 form.login-form{
-    background: #fff;
+    background: transparent;
     padding: 40px 35px;
-    border: 4px solid #0ff; /* neon border */
-    border-radius: 20px; /* rounded corners */
+    border: 2px solid #0ff;
+    border-radius: 20px;
     box-shadow: 0 0 20px rgba(0,255,255,0.3);
     width:100%;
     max-width:380px;
@@ -45,7 +204,7 @@ form.login-form:hover{
 
 form.login-form h2{
     margin-bottom:25px;
-    color:#2f2f2f;
+    color:#2b2b2b;
 }
 
 form.login-form input{
@@ -55,13 +214,14 @@ form.login-form input{
     border-radius:10px;
     border:1px solid #ccc;
     font-size:14px;
-    background: rgba(238, 231, 231, 0.93);
+    background: rgba(238,231,231,0.93);
     color:#111;
+    transition:0.3s, box-shadow 0.3s;
 }
 
 form.login-form input:focus{
     outline:none;
-    box-shadow: 0 0 10px #0ff;
+    box-shadow:0 0 10px #0ff;
     border-color:#0ff;
     background: rgba(255,255,255,0.9);
 }
@@ -93,10 +253,7 @@ form.login-form ul{
     font-size:14px;
 }
 
-/* ===== RESPONSIVE ===== */
-@media(max-width:768px){
-    .navbar{flex-direction:column;gap:15px;}
-}
+
 </style>
 </head>
 <body>
@@ -104,7 +261,8 @@ form.login-form ul{
 <!-- NAVBAR -->
 <nav class="navbar">
     <div class="logo">GEMS</div>
-    <div class="nav-links">
+    <div class="menu-toggle" id="mobile-menu">&#9776;</div>
+    <div class="nav-links" id="navLinks">
         <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('about') }}">About</a>
         <a href="{{ url_for('course_page') }}">Courses</a>
@@ -133,6 +291,15 @@ form.login-form ul{
     {% endwith %}
 </form>
 </div>
+
+<script>
+// Hamburger menu toggle
+const menuToggle = document.getElementById('mobile-menu');
+const navLinks = document.getElementById('navLinks');
+menuToggle.addEventListener('click', ()=>{
+    navLinks.classList.toggle('active');
+});
+</script>
 
 </body>
 </html>
