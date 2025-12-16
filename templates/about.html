@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About | Gurukul School</title>
+
+<style>
+/* ===== RESET & BASE ===== */
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Times New Roman", serif;}
+body{background:#faf9f7;color:#2b2b2b;line-height:1.7;}
+
+/* ===== NAVBAR (Same as Home) ===== */
+.navbar{width:100%;padding:28px 70px;display:flex;justify-content:space-between;align-items:center;background:transparent;}
+.logo{font-size:30px;font-weight:600;letter-spacing:1.5px;color:#4f5d4a;}
+.nav-links{display:flex;gap:34px;}
+.nav-links a{text-decoration:none;font-size:16px;color:#6b6b6b;position:relative;padding-bottom:4px;}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:#4f5d4a;transition:0.3s ease;}
+.nav-links a:hover{color:#2b2b2b;}
+.nav-links a:hover::after{width:100%;}
+
+/* ===== PAGE TITLE ===== */
+.page-title{text-align:center;padding:80px 20px 40px;}
+.page-title h1{font-size:40px;font-weight:500;}
+.page-title p{font-size:18px;color:#6f6f6f;}
+
+/* ===== CONTENT BOXES ===== */
+.container{max-width:1200px;margin:auto;padding:20px;display:flex;flex-direction:column;gap:30px;}
+
+.box{
+    background:#ffffff;
+    padding:35px;
+    margin-bottom:40px;
+    border: 4px solid #0ff; /* neon border */
+    border-radius:20px; /* rounded corners */
+    box-shadow:0 0 20px rgba(0,255,255,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.box:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px #0ff, 0 0 50px rgba(0,255,255,0.5);
+}
+.box h3{font-size:24px;margin-bottom:15px;color:#2f2f2f;}
+.box p{font-size:16px;color:#555;text-align:justify;line-height:1.6;}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:992px){
+    .navbar{padding:25px 40px;}
+}
+@media(max-width:600px){
+    .navbar{flex-direction:column;gap:18px;padding:20px;}
+    .page-title h1{font-size:30px;}
+    .box{padding:25px;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">GEMS</div>
+    <div class="nav-links">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="{{ url_for('course_page') }}">Courses</a>
+        <a href="{{ url_for('gallery_page') }}">Gallery</a>
+        <a href="{{ url_for('contact_page') }}">Contact</a>
+        <a href="{{ url_for('admin_login') }}">Admin</a>
+    </div>
+</nav>
+
+<!-- PAGE TITLE -->
+<section class="page-title">
+    <h1>About Our Institution</h1>
+    <p>Excellence in education with strong values</p>
+</section>
+
+<!-- CONTENT -->
+<div class="container">
+
+    <div class="box">
+        <h3>Gurukul English Medium School & Junior College</h3>
+        <p>
+        Gurukul English Medium School & Junior College is a premier educational institution offering
+        <strong>Nursery to 12th standard</strong> education, located in Mudi, Pr. Dangri,
+        Taluka Amalner, District Jalgaon. Founded by Mr. Avinash Manohar Patil, the institution
+        was established with a vision to provide holistic education that nurtures both academic
+        excellence and overall personality development of students.
+        </p>
+    </div>
+
+    <div class="box">
+        <h3>Our Mission</h3>
+        <p>
+        The school follows a student-centered approach where every child is encouraged to explore
+        their potential to the fullest. The vision of Gurukul is to develop well-rounded individuals
+        by emphasizing <strong>moral values, discipline, creativity, and leadership qualities</strong>.
+        </p>
+    </div>
+
+    <div class="box">
+        <h3>Our Vision</h3>
+        <p>
+        To build a future-ready school system offering innovation, creativity and world-class learning
+        with transparency and technology at its core.
+        </p>
+    </div>
+
+</div>
+
+</body>
+</html>

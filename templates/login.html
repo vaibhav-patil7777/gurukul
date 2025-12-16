@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login | Gurukul Dashboard</title>
+<style>
+/* ===== RESET & BASE ===== */
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Times New Roman", serif;}
+body{background:#faf9f7;color:#2b2b2b;height:100vh;}
+
+/* ===== NAVBAR ===== */
+.navbar{width:100%;padding:28px 70px;display:flex;justify-content:space-between;align-items:center;background:transparent;}
+.logo{font-size:30px;font-weight:600;letter-spacing:1.5px;color:#4f5d4a;}
+.nav-links{display:flex;gap:34px;}
+.nav-links a{text-decoration:none;font-size:16px;color:#6b6b6b;position:relative;padding-bottom:4px;}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:#4f5d4a;transition:0.3s ease;}
+.nav-links a:hover{color:#2b2b2b;}
+.nav-links a:hover::after{width:100%;}
+
+/* ===== LOGIN FORM ===== */
+.login-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:80vh;
+}
+
+form.login-form{
+    background: #fff;
+    padding: 40px 35px;
+    border: 4px solid #0ff; /* neon border */
+    border-radius: 20px; /* rounded corners */
+    box-shadow: 0 0 20px rgba(0,255,255,0.3);
+    width:100%;
+    max-width:380px;
+    text-align:center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+form.login-form:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 0 35px #0ff, 0 0 60px rgba(0,255,255,0.5);
+}
+
+form.login-form h2{
+    margin-bottom:25px;
+    color:#2f2f2f;
+}
+
+form.login-form input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:10px;
+    border:1px solid #ccc;
+    font-size:14px;
+    background: rgba(238, 231, 231, 0.93);
+    color:#111;
+}
+
+form.login-form input:focus{
+    outline:none;
+    box-shadow: 0 0 10px #0ff;
+    border-color:#0ff;
+    background: rgba(255,255,255,0.9);
+}
+
+form.login-form button{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    background:#0ff;
+    color:#111;
+    border:none;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+form.login-form button:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 0 12px #0ff, 0 0 25px rgba(0,255,255,0.5);
+}
+
+form.login-form ul{
+    list-style:none;
+    padding:0;
+    margin-top:10px;
+    color:red;
+    font-weight:bold;
+    font-size:14px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+    .navbar{flex-direction:column;gap:15px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">GEMS</div>
+    <div class="nav-links">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="{{ url_for('course_page') }}">Courses</a>
+        <a href="{{ url_for('gallery_page') }}">Gallery</a>
+        <a href="{{ url_for('contact_page') }}">Contact</a>
+        <a href="{{ url_for('admin_login') }}">Admin</a>
+    </div>
+</nav>
+
+<!-- LOGIN FORM -->
+<div class="login-container">
+<form method="POST" class="login-form">
+    <h2>Admin Login</h2>
+    <input type="text" name="username" placeholder="Username" required><br>
+    <input type="password" name="password" placeholder="Password" required><br>
+    <button type="submit">Login</button>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for msg in messages %}
+          <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+</form>
+</div>
+
+</body>
+</html>

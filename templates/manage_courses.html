@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manage Courses | GEMS School</title>
+
+<style>
+/* ===== RESET ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ===== BASE ===== */
+body{
+    font-family:"Times New Roman", serif;
+    background:#faf9f7;
+    color:#2b2b2b;
+    line-height:1.7;
+}
+
+/* ===== NAVBAR ===== */
+.navbar{
+    width:100%;
+    padding:28px 70px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:transparent;
+}
+
+/* LOGO */
+.logo{
+    font-size:30px;
+    font-weight:600;
+    letter-spacing:1.5px;
+    color:#4f5d4a;
+}
+
+/* LINKS */
+.nav-links{
+    display:flex;
+    gap:34px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    font-size:16px;
+    color:#6b6b6b;
+    position:relative;
+    padding-bottom:4px;
+}
+
+/* subtle underline */
+.nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:0;
+    height:1px;
+    background:#4f5d4a;
+    transition:0.3s ease;
+}
+
+.nav-links a:hover{
+    color:#2b2b2b;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+/* ===== CONTAINER ===== */
+.container{
+    max-width:1250px;
+    margin:auto;
+    padding:120px 20px 20px; /* top padding for navbar */
+}
+
+/* ===== PAGE HEADING ===== */
+h2{
+    text-align:center;
+    margin-bottom:30px;
+    color:#2f2f2f;
+}
+
+/* ===== FORM ===== */
+form{
+    background:#ffffff;
+    padding:20px;
+    border-radius:8px;
+    margin-bottom:40px;
+}
+form input, form textarea{
+    padding:10px;
+    margin:10px 0;
+    width:100%;
+    border-radius:5px;
+    border:1px solid #ccc;
+    box-sizing:border-box;
+    background:#faf9f7;
+    color:#2b2b2b;
+}
+form textarea{
+    resize:vertical;
+}
+form button{
+    padding:10px 20px;
+    background:#4f5d4a;
+    color:#fff;
+    border:none;
+    font-weight:bold;
+    cursor:pointer;
+    border-radius:5px;
+    transition:0.3s;
+}
+form button:hover{
+    background:#2f3a2c;
+}
+
+/* ===== TABLE ===== */
+table{
+    width:100%;
+    border-collapse: collapse;
+    background:#ffffff;
+    color:#2b2b2b;
+}
+th, td{
+    padding:12px;
+    border:1px solid #ccc;
+    text-align:left;
+    word-break:break-word;
+}
+th{
+    background:#f0f0f0;
+}
+tr:nth-child(even){
+    background:#f9f9f9;
+}
+td img{
+    max-width:100px;
+    border-radius:5px;
+}
+
+/* ===== RESPONSIVE TABLE ===== */
+@media(max-width:992px){
+    table, thead, tbody, th, td, tr{
+        display:block;
+    }
+    thead tr{
+        display:none;
+    }
+    tr{
+        margin-bottom:15px;
+        border:1px solid #ccc;
+        padding:10px;
+    }
+    td{
+        border:none;
+        padding:5px 0;
+        position:relative;
+        padding-left:50%;
+    }
+    td::before{
+        position:absolute;
+        top:0;
+        left:10px;
+        width:45%;
+        white-space:nowrap;
+        font-weight:bold;
+        content:attr(data-label);
+        color:#4f5d4a;
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:992px){
+    .navbar{
+        padding:25px 40px;
+    }
+}
+@media(max-width:600px){
+    .navbar{
+        flex-direction:column;
+        gap:18px;
+        padding:20px;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="logo">GEMS</div>
+    <div class="nav-links">
+        <a href="{{ url_for('admin_dashboard') }}"> Dashboard</a>
+        <a href="{{ url_for('manage_courses') }}"> Courses</a>
+        <a href="{{ url_for('manage_gallery') }}"> Gallery</a>
+        <a href="{{ url_for('contact_messages') }}"> Messages</a>
+        <a href="{{ url_for('admin_logout') }}"> Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+<h2>Manage Courses</h2>
+
+<!-- Add Course Form -->
+<form action="{{ url_for('add_course') }}" method="POST" enctype="multipart/form-data">
+    <input type="text" name="name" placeholder="Course Name" required>
+    <textarea name="description" placeholder="Course Description" required></textarea>
+    <input type="file" name="image" accept="image/*">
+    <button type="submit">Add Course</button>
+</form>
+
+<!-- Courses Table -->
+<table>
+<thead>
+<tr>
+<th>ID</th><th>Name</th><th>Description</th><th>Image</th><th>Action</th>
+</tr>
+</thead>
+<tbody>
+{% for course in courses %}
+<tr>
+<td data-label="ID">{{ course.id }}</td>
+<td data-label="Name">{{ course.name }}</td>
+<td data-label="Description">{{ course.description }}</td>
+<td data-label="Image">{% if course.image %}<img src="{{ url_for('static', filename='uploads/' + course.image) }}">{% endif %}</td>
+<td data-label="Action">
+<a href="{{ url_for('edit_course', course_id=course.id) }}">Edit</a> | 
+<a href="{{ url_for('delete_course', course_id=course.id) }}">Delete</a>
+</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+
+</body>
+</html>

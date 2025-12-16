@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEMS School | Home</title>
+
+<style>
+/* ===== RESET ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* ===== BASE ===== */
+body{
+    font-family:"Times New Roman", serif;
+    background:#faf9f7;
+    color:#2b2b2b;
+    line-height:1.7;
+}
+
+/* ===== NAVBAR ===== */
+.navbar{
+    width:100%;
+    padding:28px 70px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:transparent;
+}
+
+/* LOGO */
+.logo{
+    font-size:30px;
+    font-weight:600;
+    letter-spacing:1.5px;
+    color:#4f5d4a;
+}
+
+/* LINKS */
+.nav-links{
+    display:flex;
+    gap:34px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    font-size:16px;
+    color:#6b6b6b;
+    position:relative;
+    padding-bottom:4px;
+}
+
+/* subtle underline */
+.nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:0;
+    height:1px;
+    background:#4f5d4a;
+    transition:0.3s ease;
+}
+
+.nav-links a:hover{
+    color:#2b2b2b;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+/* ===== HERO ===== */
+.hero{
+    text-align:center;
+    padding:90px 20px 70px;
+}
+
+.hero h1{
+    font-size:44px;
+    font-weight:500;
+    margin-bottom:10px;
+    color:#2f2f2f;
+}
+
+.hero p{
+    font-size:18px;
+    color:#6f6f6f;
+}
+
+/* ===== CONTENT GRID ===== */
+.container{
+    max-width:1250px;
+    margin:auto;
+    padding:20px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:40px;
+}
+
+.card{
+    background:#ffffff;
+}
+
+.card img{
+    width:100%;
+    height:240px;
+    object-fit:cover;
+}
+
+.card h3{
+    font-size:21px;
+    margin:18px 0 6px;
+    color:#333;
+}
+
+.card p{
+    font-size:15px;
+    color:#666;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:992px){
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+    .navbar{
+        padding:25px 40px;
+    }
+}
+
+@media(max-width:600px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+    .navbar{
+        flex-direction:column;
+        gap:18px;
+        padding:20px;
+    }
+    .hero h1{
+        font-size:32px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">GEMS</div>
+    <div class="nav-links">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="{{ url_for('course_page') }}">Courses</a>
+        <a href="{{ url_for('gallery_page') }}">Gallery</a>
+        <a href="{{ url_for('contact_page') }}">Contact</a>
+        <a href="{{ url_for('admin_login') }}">Admin</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <h1> Gurukul English Medium School & Junior College</h1>   
+    <h2>Ideas, learning & inspiration for the future</h2>
+    <p> GEMS is the education diamond.</p>
+</section>
+
+<section class="container">
+    <div class="grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f">
+            <h3>Quality Education</h3>
+            <p>Strong academic foundation with modern teaching.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b">
+            <h3>Smart Classrooms</h3>
+            <p>Technology blended with traditional values.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7">
+            <h3>Overall Development</h3>
+            <p>Sports, creativity and leadership development.</p>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
