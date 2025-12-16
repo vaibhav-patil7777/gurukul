@@ -3,23 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact Messages | GEMS School</title>
-
+<title>Contact | Gurukul School</title>
 <style>
-/* ===== RESET ===== */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-/* ===== BASE ===== */
-body{
-    font-family:"Times New Roman", serif;
-    background:#faf9f7;
-    color:#2b2b2b;
-    line-height:1.7;
-}
+/* ===== RESET & BASE ===== */
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Times New Roman",serif;}
+body{background:#faf9f7;color:#2b2b2b;line-height:1.7;}
 
 /* ===== NAVBAR ===== */
 .navbar{
@@ -32,155 +20,100 @@ body{
     position:relative;
     z-index:1000;
 }
+.logo{font-size:30px;font-weight:600;letter-spacing:1.5px;color:#4f5d4a;}
+.nav-links{display:flex;gap:34px;}
+.nav-links a{text-decoration:none;font-size:16px;color:#6b6b6b;position:relative;padding-bottom:4px;}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:#4f5d4a;transition:0.3s ease;}
+.nav-links a:hover{color:#2b2b2b;}
+.nav-links a:hover::after{width:100%;}
+.menu-toggle{display:none;font-size:28px;cursor:pointer;color:#4f5d4a;}
 
-/* LOGO */
-.logo{
-    font-size:30px;
-    font-weight:600;
-    letter-spacing:1.5px;
-    color:#4f5d4a;
-}
+/* ===== PAGE TITLE ===== */
+.page-title{text-align:center;padding:80px 20px 40px;}
+.page-title h1{font-size:40px;font-weight:500;}
+.page-title p{font-size:18px;color:#6f6f6f;}
 
-/* LINKS */
-.nav-links{
-    display:flex;
-    gap:34px;
-}
-
-.nav-links a{
-    text-decoration:none;
-    font-size:16px;
-    color:#6b6b6b;
-    position:relative;
-    padding-bottom:4px;
-}
-
-.nav-links a::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:0;
-    width:0;
-    height:1px;
-    background:#4f5d4a;
-    transition:0.3s ease;
-}
-
-.nav-links a:hover{
-    color:#2b2b2b;
-}
-
-.nav-links a:hover::after{
-    width:100%;
-}
-
-/* Hamburger icon */
-.menu-toggle{
-    display:none;
-    font-size:28px;
-    cursor:pointer;
-    color:#4f5d4a;
-}
-
-/* ===== CONTAINER ===== */
+/* ===== CONTACT BOXES ===== */
 .container{
-    max-width:1250px;
+    max-width:800px;
     margin:auto;
-    padding:120px 20px 20px;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:30px;
 }
-
-/* ===== PAGE HEADING ===== */
-h2{
-    text-align:center;
-    margin-bottom:20px;
-    color:#2f2f2f;
+.contact-info, .contact-form{
+    background:transparent;
+    padding:30px;
+    border-radius:15px;
+    border:2px solid #0ff;
+    box-shadow:0 0 20px rgba(0,255,255,0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
-
-/* ===== SEARCH BAR ===== */
-#searchInput{
-    width:100%;
-    padding:10px;
-    margin-bottom:15px;
-    border:1px solid #ccc;
-    font-size:15px;
+.contact-info:hover, .contact-form:hover{
+    transform: translateY(-5px);
+    box-shadow:0 0 30px #0ff, 0 0 50px rgba(0,255,255,0.5);
 }
-
-/* ===== DELETE BUTTON ===== */
-#deleteBtn{
-    padding:8px 15px;
-    background:#d9534f;
-    color:white;
-    border:none;
-    cursor:pointer;
-    margin-bottom:10px;
-}
-#deleteBtn:hover{
-    background:#c9302c;
-}
-
-/* ===== TABLE ===== */
-table{
-    width:100%;
-    border-collapse: collapse;
-    background:#ffffff;
+.contact-info h3, .contact-form h3{
     color:#2b2b2b;
+    margin-bottom:20px;
+    text-align:center;
+    font-size:22px;
 }
-th, td{
+.contact-info p{color:#555;font-size:14px;margin-bottom:10px;line-height:1.6;}
+.map{
+    width:100%;
+    height:300px;
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:15px;
+    border:2px solid #0ff;
+    box-shadow:0 0 20px rgba(0,255,255,0.3);
+}
+
+/* Inquiry Form */
+.contact-form input, .contact-form textarea{
+    width:100%;
     padding:12px;
-    border:1px solid #ccc;
-    text-align:left;
-    word-break:break-word;
+    margin:10px 0;
+    border-radius:8px;
+    border:none;
+    background: rgba(238, 231, 231, 0.93);
+    color:#111;
+    font-size:14px;
+    transition:0.3s, box-shadow 0.3s;
 }
-th{
-    background:#f0f0f0;
+.contact-form input::placeholder, .contact-form textarea::placeholder{color:#555;}
+.contact-form input:focus, .contact-form textarea:focus{
+    outline:none;
+    box-shadow:0 0 10px #0ff;
+    background: rgba(200, 200, 200, 0.5);
 }
-tr:nth-child(even){
-    background:#f9f9f9;
+.contact-form button{
+    padding:12px;
+    background:#0ff;
+    color:#111;
+    border:none;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:10px;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
-
-/* ===== RESPONSIVE TABLE ===== */
-@media(max-width:992px){
-    table, thead, tbody, th, td, tr{
-        display:block;
-    }
-    thead tr{
-        display:none;
-    }
-    tr{
-        margin-bottom:15px;
-        border:1px solid #ccc;
-        padding:10px;
-    }
-    td{
-        border:none;
-        padding:5px 0;
-        position:relative;
-        padding-left:50%;
-    }
-    td::before{
-        position:absolute;
-        top:0;
-        left:10px;
-        width:45%;
-        white-space:nowrap;
-        font-weight:bold;
-        content:attr(data-label);
-        color:#4f5d4a;
-    }
+.contact-form button:hover{
+    transform: translateY(-3px);
+    box-shadow:0 0 12px #0ff, 0 0 25px rgba(0,255,255,0.5);
+}
+.contact-form p{
+    color:lightgreen;
+    text-align:center;
+    margin-top:10px;
+    font-weight:bold;
 }
 
-/* ===== RESPONSIVE NAVBAR ===== */
-@media(max-width:992px){
-    .navbar{
-        padding:25px 40px;
-    }
-}
-@media(max-width:600px){
-    .navbar{
-        flex-direction:row;
-        justify-content:space-between;
-        padding:20px;
-    }
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+    .navbar{flex-direction:row;justify-content:space-between;padding:20px;}
     .nav-links{
         display:none;
         flex-direction:column;
@@ -192,100 +125,75 @@ tr:nth-child(even){
         background:transparent;
         padding:0;
     }
-    .nav-links.active{
-        display:flex;
-    }
-    .nav-links a{
-        padding:12px 20px;
-    }
-    .menu-toggle{
-        display:block;
-    }
+    .nav-links.active{display:flex;}
+    .nav-links a{padding:12px 20px;}
+    .menu-toggle{display:block;}
+    .page-title h1{font-size:32px;}
 }
 </style>
 </head>
 <body>
 
-<!-- Navbar -->
+<!-- NAVBAR -->
 <nav class="navbar">
     <div class="logo">GEMS</div>
     <div class="menu-toggle" id="mobile-menu">&#9776;</div>
     <div class="nav-links" id="navLinks">
-        <a href="{{ url_for('admin_dashboard') }}">Dashboard</a>
-        <a href="{{ url_for('manage_courses') }}">Courses</a>
-        <a href="{{ url_for('manage_gallery') }}">Gallery</a>
-        <a href="{{ url_for('contact_messages') }}">Messages</a>
-        <a href="{{ url_for('admin_logout') }}">Logout</a>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="{{ url_for('course_page') }}">Courses</a>
+        <a href="{{ url_for('gallery_page') }}">Gallery</a>
+        <a href="{{ url_for('contact_page') }}">Contact</a>
+        <a href="{{ url_for('admin_login') }}">Admin</a>
     </div>
 </nav>
 
+<!-- PAGE TITLE -->
+<section class="page-title">
+    <h1>Contact Us</h1>
+    <p>Get in touch with us for any queries or information</p>
+</section>
+
 <div class="container">
-    <h2>Contact Messages</h2>
+  <!-- Map + Info Box -->
+  <div class="contact-info">
+    <h3>Our Location & Info</h3>
+    <p><strong>Organization Name:</strong> Gurukul English Medium School & Junior College</p>
+    <p><strong>Chairman Name:</strong> Mr. Avinash Manohar Patil</p>
+    <p><strong>Principal Name:</strong> Mr. Avinash Manohar Patil</p>
+    <p><strong>Phone:</strong> +91 9975605722, +91 9561277760</p>
+    <p><strong>Email:</strong> avisha20042007@gmail.com</p>
+    <p><strong>Address:</strong> Mudi, Pr. Dangri, Taluka Amalner, District Jalgaon</p>
+    <p><strong>Pincode:</strong> 425401</p>
+    <div class="map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3781.1234567890!2d75.000000!3d21.000000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sGurukul%20English%20Medium%20School!5e0!3m2!1sen!2sin!4v1699999999999" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </div>
 
-    <!-- Search Bar -->
-    <input type="text" id="searchInput"
-           placeholder="Search by Name, Phone, Email or Date...">
-
-    <!-- Delete Form -->
-    <form method="POST" action="{{ url_for('delete_messages') }}" id="deleteForm">
-        <button type="submit" id="deleteBtn" onclick="return confirm('Are you sure you want to delete selected messages?')">Delete Selected</button>
-
-        <table>
-            <thead>
-                <tr>
-                    <th><input type="checkbox" id="selectAll"></th>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Message</th>
-                    <th>Time</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for msg in messages %}
-                <tr>
-                    <td data-label="Select">
-                        <input type="checkbox" name="selected_ids" value="{{ msg.id }}">
-                    </td>
-                    <td data-label="ID">{{ msg.id }}</td>
-                    <td data-label="Name">{{ msg.name }}</td>
-                    <td data-label="Phone">{{ msg.phone }}</td>
-                    <td data-label="Email">{{ msg.email }}</td>
-                    <td data-label="Message">{{ msg.message }}</td>
-                    <td data-label="Time">{{ msg.created_at }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+  <!-- Inquiry Form -->
+  <div class="contact-form">
+    <h3>Inquiry Form</h3>
+    <form method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="text" name="phone" placeholder="Phone Number" required>
+      <input type="email" name="email" placeholder="Email (optional)">
+      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Send Inquiry</button>
     </form>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <p>{{ messages[0] }}</p>
+      {% endif %}
+    {% endwith %}
+  </div>
 </div>
 
-<!-- Scripts -->
 <script>
 // Hamburger menu toggle
 const menuToggle = document.getElementById('mobile-menu');
 const navLinks = document.getElementById('navLinks');
-
 menuToggle.addEventListener('click', ()=>{
     navLinks.classList.toggle('active');
-});
-
-// ===== Search Functionality =====
-document.getElementById("searchInput").addEventListener("keyup", function () {
-    let filter = this.value.toLowerCase();
-    let rows = document.querySelectorAll("tbody tr");
-
-    rows.forEach(row => {
-        let rowText = row.innerText.toLowerCase();
-        row.style.display = rowText.includes(filter) ? "" : "none";
-    });
-});
-
-// ===== Select / Deselect All Checkboxes =====
-document.getElementById("selectAll").addEventListener("change", function() {
-    let checkboxes = document.querySelectorAll('tbody input[type="checkbox"]');
-    checkboxes.forEach(cb => cb.checked = this.checked);
 });
 </script>
 
