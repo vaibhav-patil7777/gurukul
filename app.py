@@ -264,6 +264,34 @@ def contact_messages():
     messages = ContactMessage.query.order_by(ContactMessage.created_at.desc()).all()
     return render_template('contact_messages.html', messages=messages)
 
+
+@app.route('/admin/delete_messages', methods=['POST'])
+def delete_messages():
+    # Admin session check
+    if 'admin' not in session:
+        return redirect(url_for('admin_login'))
+
+    # Select की गई message IDs
+    selected_ids = request.form.getlist('selected_ids')  # ये list return करेगा
+
+    if not selected_ids:
+        flash("No messages selected!", "warning")
+        return redirect(url_for('contact_messages'))
+
+    try:
+        for msg_id in selected_ids:
+            msg = ContactMessage.query.get(int(msg_id))
+            if msg:
+                db.session.delete(msg)  # Delete message
+        db.session.commit()  # DB changes save करें
+        flash(f"{len(selected_ids)} message(s) deleted successfully.", "success")
+    except Exception as e:
+        db.session.rollback()
+        flash("Error deleting messages!", "danger")
+        print(e)
+
+    return redirect(url_for('contact_messages'))
+
 # ------------------ RUN APP ------------------
 if __name__ == '__main__':
     app.run(debug=True)
