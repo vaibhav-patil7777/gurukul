@@ -7,17 +7,69 @@
 
 <style>
 /* ===== RESET & BASE ===== */
-*{margin:0;padding:0;box-sizing:border-box;font-family:"Times New Roman", serif;}
-body{background:#faf9f7;color:#2b2b2b;line-height:1.7;}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Times New Roman", serif;
+}
+body{
+    background:#faf9f7;
+    color:#2b2b2b;
+    line-height:1.7;
+}
 
-/* ===== NAVBAR (Same as Home) ===== */
-.navbar{width:100%;padding:28px 70px;display:flex;justify-content:space-between;align-items:center;background:transparent;}
-.logo{font-size:30px;font-weight:600;letter-spacing:1.5px;color:#4f5d4a;}
-.nav-links{display:flex;gap:34px;}
-.nav-links a{text-decoration:none;font-size:16px;color:#6b6b6b;position:relative;padding-bottom:4px;}
-.nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:#4f5d4a;transition:0.3s ease;}
-.nav-links a:hover{color:#2b2b2b;}
-.nav-links a:hover::after{width:100%;}
+/* ===== NAVBAR (Transparent + Responsive) ===== */
+.navbar{
+    width:100%;
+    padding:28px 70px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:transparent; /* Transparent */
+    position:relative;
+    z-index:1000;
+}
+.logo{
+    font-size:30px;
+    font-weight:600;
+    letter-spacing:1.5px;
+    color:#4f5d4a;
+}
+.nav-links{
+    display:flex;
+    gap:34px;
+}
+.nav-links a{
+    text-decoration:none;
+    font-size:16px;
+    color:#6b6b6b;
+    position:relative;
+    padding-bottom:4px;
+}
+.nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:0;
+    width:0;
+    height:1px;
+    background:#4f5d4a;
+    transition:0.3s ease;
+}
+.nav-links a:hover{
+    color:#2b2b2b;
+}
+.nav-links a:hover::after{
+    width:100%;
+}
+/* Hamburger icon */
+.menu-toggle{
+    display:none;
+    font-size:28px;
+    cursor:pointer;
+    color:#4f5d4a;
+}
 
 /* ===== PAGE TITLE ===== */
 .page-title{text-align:center;padding:80px 20px 40px;}
@@ -25,8 +77,14 @@ body{background:#faf9f7;color:#2b2b2b;line-height:1.7;}
 .page-title p{font-size:18px;color:#6f6f6f;}
 
 /* ===== CONTENT BOXES ===== */
-.container{max-width:1200px;margin:auto;padding:20px;display:flex;flex-direction:column;gap:30px;}
-
+.container{
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+}
 .box{
     background:#ffffff;
     padding:35px;
@@ -48,7 +106,33 @@ body{background:#faf9f7;color:#2b2b2b;line-height:1.7;}
     .navbar{padding:25px 40px;}
 }
 @media(max-width:600px){
-    .navbar{flex-direction:column;gap:18px;padding:20px;}
+    .navbar{
+        flex-direction:row;
+        justify-content:space-between;
+        padding:20px;
+        background:transparent;
+    }
+    .nav-links{
+        display:none;
+        flex-direction:column;
+        width:100%;
+        gap:0; 
+        position:absolute;
+        top:70px;
+        left:0;
+        background:transparent; 
+        padding:0; 
+    }
+    .nav-links.active{
+        display:flex;
+    }
+    .nav-links a{
+        padding:12px 20px;
+        border:none; /* No border between links */
+    }
+    .menu-toggle{
+        display:block;
+    }
     .page-title h1{font-size:30px;}
     .box{padding:25px;}
 }
@@ -60,7 +144,8 @@ body{background:#faf9f7;color:#2b2b2b;line-height:1.7;}
 <!-- NAVBAR -->
 <nav class="navbar">
     <div class="logo">GEMS</div>
-    <div class="nav-links">
+    <div class="menu-toggle" id="mobile-menu">&#9776;</div>
+    <div class="nav-links" id="navLinks">
         <a href="{{ url_for('home') }}">Home</a>
         <a href="{{ url_for('about') }}">About</a>
         <a href="{{ url_for('course_page') }}">Courses</a>
@@ -108,6 +193,16 @@ body{background:#faf9f7;color:#2b2b2b;line-height:1.7;}
     </div>
 
 </div>
+
+<script>
+// Hamburger menu toggle
+const menuToggle = document.getElementById('mobile-menu');
+const navLinks = document.getElementById('navLinks');
+
+menuToggle.addEventListener('click', ()=>{
+    navLinks.classList.toggle('active');
+});
+</script>
 
 </body>
 </html>
