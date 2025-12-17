@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'  # SQLite database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://school_db_iaee_user:sVRYt579kWY8sCfhK5tMh7zdCsovq8u9@dpg-d516g0juibrs73b7rfl0-a/school_db_iaee'  # SQLite database
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'secret123'
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
